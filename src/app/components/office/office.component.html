@@ -1,0 +1,68 @@
+<!-- OFFICES ACCORDION  -->
+<div class="my-2">
+  <accordion class="custom" [isAnimated]="true" [closeOthers]="true">
+    <accordion-group [panelClass]="'custom'" *ngFor="let office of offices" heading="{{office.name}} ">
+      <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading
+        type="button">
+        <div class="pull-left float-left" style="max-height: 50px;">
+          <hr>
+          <p><strong>{{office.capacity}} </strong>Staff Members in Office</p>
+        </div>
+        <a (click)="goToOfficeView(office)"><i class="fa fa-arrow-circle-right fa-lg float-right"></i></a>
+        <a (click)="openEdit()"><i class="fas fa-edit fa-lg float-right"></i></a>
+        <a (click)="deleteOffice(office.id)"><span style="color: Tomato;"><i
+          class="fa fa-trash fa-lg pointer"></i></span></a>
+      </button>
+      <ul>
+        <li><strong>Address: </strong>{{office.address}}</li>
+        <li><strong>Phone number: </strong>{{office.phoneNumber}}</li>
+        <li><strong>Email: </strong>{{office.emailAddress}}</li>
+        <li><strong>Office Capacity: </strong>{{office.capacity}}</li>
+      </ul>
+    </accordion-group>
+  </accordion>
+  <a (click)="openModal(OfficeSheet)" class="fixedButton">
+    <div class="roundedFixedBtn"><i class="fa fa-plus"></i></div>
+  </a>
+
+  <!-- CREATE OFFICE MODAL -->
+
+  <!-- <ng-template #OfficeSheet>
+    <form >
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+      </div>
+    </form>
+  </ng-template> -->
+  <ng-template #OfficeSheet>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Add Office</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="officeForm" >
+        <div class="form-group">
+          <input type="text" class="form-control" id="name" placeholder="Office Name" formControlName="name" required>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="address" placeholder="Address" formControlName="address" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" id="emailAddress" placeholder="Email Address" formControlName="emailAddress" required>
+        </div>
+        <div class="form-group">
+          <input type="number" class="form-control" id="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" required>
+        </div>
+        <div class="form-group">
+          <input type="number" class="form-control" id="capacity" placeholder="Maximum Capacity" formControlName="capacity" required>
+        </div>
+        <button (click)="addNewOffice()" [disabled]="officeForm.invalid" type="submit" class="btn btn-primary float-right">
+          Add Office
+        </button>
+      </form>
+    </div>
+  </ng-template>
+</div>

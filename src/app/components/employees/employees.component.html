@@ -1,0 +1,66 @@
+<div *ngIf="employees" class="my-3">
+    <h4>Staff members in office: {{employees.length}}</h4>
+</div>
+<div class="input-group mt">
+    <!-- <pre class="card card-block card-header mb-3">Model: {{selected | json}}</pre> -->
+    <input [(ngModel)]="selected" [typeahead]="states" [isAnimated]="true" class="form-control"
+        placeholder="Search Employees...">
+    <button type="button" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+    </button>
+</div>
+<ul class="list-group my-2">
+    <li *ngFor="let employee of employees" class="list-group-item"><i class="fa fa-user fa-lg" aria-hidden="true"></i>
+        {{employee.firstName}} {{ employee.lastName}}
+        <div class="float-right">
+            <a (click)="deleteEmployee(employee.id)"><span style="color: Tomato;"><i
+                        class="fa fa-trash fa-lg pointer"></i></span></a>
+            <a (click)="openModal(employee,'Update')"><i class="fas fa-edit fa-lg pointer"></i> </a>
+        </div>
+    </li>
+</ul>
+
+<!-- EMPLOYEE MODAL -->
+
+<ng-template #EmployeeSheet >
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{modalAction}} staff member</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close"
+            (click)="modalRef?.hide();employeeForm.reset();">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="employeeForm">
+            <div class="mb-3">
+                <input [(ngModel)]="employeeObj.firstName" type="text" formControlName="firstName" class="form-control"
+                    id="firstName" placeholder="First Name" required>
+                <div *ngIf="employeeForm.controls['firstName'].errors">
+                    First name is required, minimum of 2 characters
+                </div>
+            </div>
+            <div class="mb-3">
+                <input [(ngModel)]="employeeObj.lastName" type="text" formControlName="lastName" class="form-control"
+                    id="lastName" placeholder="Last Name" required>
+            </div>
+            <div *ngIf="employeeForm.controls['lastName'].errors">
+                Last name is required, minimum of 2 characters
+            </div>
+
+            <!-- SUBMIT BUTTONS -->
+            <div *ngIf="errorMsg">
+                {{errorMsg}}
+            </div>
+            <button [disabled]="employeeForm.invalid" *ngIf="modalAction =='Update'" (click)="updateEmployee()"
+                type="submit" class="btn btn-primary float-right">{{modalAction}}
+            </button>
+            <button [disabled]="employeeForm.invalid" *ngIf="modalAction =='Add'" (click)="addNewEmployee()"
+                type="submit" class="btn btn-primary float-right">{{modalAction}}
+            </button>
+        </form>
+    </div>
+</ng-template>
+
+<a (click)="openModal('','Add');" class="fixedButton">
+    <div class="roundedFixedBtn"><i class="fa fa-plus"></i></div>
+</a>

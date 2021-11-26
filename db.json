@@ -1,0 +1,42 @@
+{
+  "offices": [
+    {
+      "id": 1,
+      "name": "Century City HQ",
+      "address": "19 Coventry road bryanston",
+      "emailAddress": "officeExample@gmail.com",
+      "phoneNumber": "+27769715222",
+      "capacity": 25
+    },
+    {
+      "name": "Durban",
+      "address": "21 StickyArmpit Road",
+      "phoneNumber": 756912312,
+      "emailAddress": "durbanoffice@gmail.com",
+      "capacity": 12,
+      "id": 4
+    },
+    {
+      "name": "Port Elizabeth",
+      "address": "16 Smelly Seaweed lane",
+      "phoneNumber": 234234,
+      "emailAddress": "pe@gmail.com",
+      "capacity": 23,
+      "id": 5
+    }
+  ],
+  "employees": [
+    {
+      "id": 5,
+      "officeId": 1,
+      "firstName": "Duncan",
+      "lastName": "Forssman"
+    },
+    {
+      "id": 6,
+      "officeId": 4,
+      "firstName": "Richard",
+      "lastName": "Carkeek"
+    }
+  ]
+}

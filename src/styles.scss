@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+main {
+    position: relative;
+}
+.fixedButton {
+    position: relative;
+    bottom: 0px;
+    padding: 0px;
+    float: right;
+}
+.roundedFixedBtn {
+    height: 60px;
+    line-height: 60px;
+    width: 60px;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+a {
+    line-height: 1em;
+    display: inline-block;
+    text-decoration: none;
+    margin: 7px;
+}
+
+.pointer {cursor: pointer;}
+
+.ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }

@@ -1,0 +1,32 @@
+.round {
+    border-radius: 50%;
+
+  }
+  .previous {
+    background-color: #f1f1f1;
+    color: black;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  accordion-group {
+    ::ng-deep {
+      div {
+        &>div.panel-heading.card-header.panel-enabled {
+          background-color: rgba(169, 174, 179, 0.15); //background of accordion heading
+  
+          .btn-link {
+            color: rgb(6, 10, 9); //accordion heading buttons style
+          }
+        }
+  
+        &>div.panel-collapse.collapse.in.show>div {
+          background-color: hsla(210, 10%, 83%, 0.10); //expanded content style
+        }
+      }
+    }
+}
