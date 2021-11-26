@@ -1,14 +1,13 @@
-# Specno
+# Specno Office Management Assessment Application
 
 # Versions
 Node 14.17.5
 AngularCLI v9.1.15
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
 ## 1 - JSON Server Run
 json-server --watch db.json
-This must be run from the app directory
-This runs on (http://localhost:3000/)
+This must be run from the app directory (or wherever the db.json file is)
+This mock server runs on (http://localhost:3000/)
 
 ## 2 - Development server
 
