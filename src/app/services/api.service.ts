@@ -38,13 +38,19 @@ export class ApiService {
     );
   }
   deleteOffice(officeId:number) {
-    return this.http.delete<IOffice[]>(this.baseUrl + `offices/${officeId}`).pipe(
+    return this.http.delete<any>(this.baseUrl + `offices/${officeId}`).pipe(
       catchError(this.handleError)
     );
     
   }
-  addOffice(data: any) {
-    return this.http.post<IOffice[]>(this.baseUrl +'offices', data).pipe(
+  addOffice(officeData: any) {
+    return this.http.post<IOffice[]>(this.baseUrl +'offices', officeData).pipe(
+      catchError(this.handleError)
+    );
+    
+  }
+  updateOffice(officeId :number, officeData: any) {
+    return this.http.put<any>(this.baseUrl + `offices/${officeId}`, officeData).pipe(
       catchError(this.handleError)
     );
   }
@@ -57,7 +63,7 @@ export class ApiService {
     );
   }
   addEmployee(employeeData: any) {
-    return this.http.post<any>(this.baseUrl + 'employees', employeeData).pipe(
+    return this.http.post<IEmployee[]>(this.baseUrl + 'employees', employeeData).pipe(
       catchError(this.handleError)
     );
   }

@@ -12,17 +12,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EmployeesComponent implements OnInit {
   @Input() selectedOffice: any = {};
   @ViewChild('EmployeeSheet') public EmployeeSheet;
+
+  // Modal Variables
   modalRef?: BsModalRef;
   modalAction = '';
+
+  //General Variables
   employeeForm: FormGroup;
   employees: IEmployee[];
-  employeeObj = {
-    id:0,
-    officeId: '',
+  searchText = '';
+  employeePayload:IEmployee = {
+    id: 0,
+    officeId: this.selectedOffice.id,
     firstName: '',
     lastName: '',
   };
-  errorMsg= '';
+
+  errorMsg = '';
   selected?: string;
   states: string[] = [
     'Alabama',
@@ -40,37 +46,11 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
-    this.employeeForm = this.formBuilder.group({
-      officeId: [0],
-      firstName: ['',[
-        Validators.required,
-        Validators.minLength(2)
-      ]],
-      lastName: ['',[
-        Validators.required,
-        Validators.minLength(2)
-      ]],
-    })
+    this.initialiseForm();
     // this.employeeForm.valueChanges.subscribe(console.log);
   }
-  openModal(employee: any, action: string) {
-    this.employeeForm.reset();
-    this.modalRef = this.modalService.show(this.EmployeeSheet);
-    this.modalAction = action;
-    if (action == 'Update')
-      this.onEdit(employee);
-  }
-  getEmployees() {
-    this.apiService.getEmployeesByOfficeId(this.selectedOffice.id).subscribe(response => {
-      this.employees = response;
-    }, error => {
-      console.log(error);
-    });
-  }
   addNewEmployee() {
-    this.employeeObj.id =0;
-    this.employeeObj.officeId = this.selectedOffice.id;
-    this.apiService.addEmployee(this.employeeObj).subscribe(response => {
+    this.apiService.addEmployee(this.employeeForm.value).subscribe(response => {
       this.getEmployees();
       this.modalRef?.hide();
       this.employeeForm.reset();
@@ -79,34 +59,66 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-
-  onEdit(employee: any) {
-    this.employeeObj.id = employee.id;
-    this.employeeObj.firstName = employee.firstName;
-    this.employeeObj.lastName = employee.lastName;
-    this.employeeForm.controls['lastName'].setValue(employee.lastName)
-
-    this.employeeObj.officeId = this.selectedOffice.id;
-    // this.employeeObj.firstName = this.employeeForm.value.firstName;
-    // this.employeeObj.lastName = this.employeeForm.value.lastName;
+  getEmployees() {
+    this.apiService.getEmployeesByOfficeId(this.selectedOffice.id).subscribe(response => {
+      this.employees = response;
+    }, error => {
+      console.log(error);
+    });
   }
-  updateEmployee(){
 
-    this.apiService.updateEmployee(this.employeeObj.id, this.employeeObj).subscribe(response => {
+  updateEmployee() {
+    this.apiService.updateEmployee(this.employeePayload.id, this.employeePayload).subscribe(response => {
       this.getEmployees();
-      this.modalRef?.hide()
+      this.modalRef?.hide();
       this.employeeForm.reset();
     }, error => {
       console.log(error);
       this.errorMsg = 'Failed to update employee';
     });
   }
-  deleteEmployee(employeeId) {
-    this.apiService.deleteEmployee(employeeId).subscribe(response => {
+
+  deleteEmployee() {
+    this.apiService.deleteEmployee(this.employeePayload.id).subscribe(response => {
       this.getEmployees(); //Ideally the repsonse from the API would help me update the dom with a nice message
     }, error => {
       console.log(error);
     });
+    this.modalRef?.hide();
+  }
+  onSubmit(employeeData: any, action: string) {
+    if (action == 'Add')
+      this.addNewEmployee();
+    if (action == 'Update')
+      this.updateEmployee();
+    else {
+      this.deleteEmployee();
+    }
+  }
+  openModal(employeeDataFromTemplate: any, action: string) {
+    this.modalAction = action;
+    this.modalRef = this.modalService.show(this.EmployeeSheet);
+
+    if (action == 'Update')
+      this.employeePayload.id = employeeDataFromTemplate.id;
+      this.employeePayload.firstName = employeeDataFromTemplate.firstName;
+      this.employeePayload.lastName = employeeDataFromTemplate.lastName;
+      this.employeePayload.officeId = employeeDataFromTemplate.officeId;
+    if (action == 'Delete')
+      this.employeePayload.id = employeeDataFromTemplate.id;
   }
 
+  initialiseForm(){
+    this.employeeForm = this.formBuilder.group({
+      officeId: [this.selectedOffice.id],
+      firstName: ['', [
+        Validators.required,
+        Validators.minLength(2)
+      ]],
+      lastName: ['', [
+        Validators.required,
+        Validators.minLength(2)
+      ]],
+    })
+  }
 }

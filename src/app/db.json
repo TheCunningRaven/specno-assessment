@@ -5,38 +5,58 @@
       "name": "Century City HQ",
       "address": "19 Coventry road bryanston",
       "emailAddress": "officeExample@gmail.com",
-      "phoneNumber": "+27769715222",
+      "phoneNumber": "0769715222",
       "capacity": 25
     },
     {
       "name": "Durban",
-      "address": "21 StickyArmpit Road",
-      "phoneNumber": 756912312,
-      "emailAddress": "durbanoffice@gmail.com",
-      "capacity": 12,
-      "id": 4
+      "address": "12 Seashell Monkey Road",
+      "emailAddress": "durbanOffice@gmail.com",
+      "phoneNumber": "0823344812",
+      "capacity": 21,
+      "id": 2
     },
     {
-      "name": "Port Elizabeth",
-      "address": "16 Smelly Seaweed lane",
-      "phoneNumber": 234234,
-      "emailAddress": "pe@gmail.com",
-      "capacity": 23,
-      "id": 5
+      "name": "Lesotho",
+      "address": "11 Snowy Mountain street",
+      "emailAddress": "lesotho@gmail.com",
+      "phoneNumber": 7927432132,
+      "capacity": 15,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "Bloem Office",
+      "address": "31 Jacaranda street",
+      "phoneNumber": "0792743219",
+      "emailAddress": "bloem@gmail.com",
+      "capacity": 17
     }
   ],
   "employees": [
     {
-      "id": 5,
+      "id": 1,
+      "officeId": 2,
+      "firstName": "Richards",
+      "lastName": "Daniardos"
+    },
+    {
+      "id": 2,
       "officeId": 1,
       "firstName": "Duncan",
       "lastName": "Forssman"
     },
     {
-      "id": 6,
-      "officeId": 4,
-      "firstName": "Richard",
-      "lastName": "Carkeek"
+      "id": 3,
+      "officeId": 2,
+      "firstName": "Duncan",
+      "lastName": "Forssman"
+    },
+    {
+      "officeId": 1,
+      "firstName": "Grant ",
+      "lastName": "Shorten",
+      "id": 4
     }
   ]
 }

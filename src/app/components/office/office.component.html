@@ -9,60 +9,90 @@
           <p><strong>{{office.capacity}} </strong>Staff Members in Office</p>
         </div>
         <a (click)="goToOfficeView(office)"><i class="fa fa-arrow-circle-right fa-lg float-right"></i></a>
-        <a (click)="openEdit()"><i class="fas fa-edit fa-lg float-right"></i></a>
-        <a (click)="deleteOffice(office.id)"><span style="color: Tomato;"><i
-          class="fa fa-trash fa-lg pointer"></i></span></a>
+        <a (click)="openModal(office,'Update')"><i class="fas fa-edit fa-lg float-right"></i></a>
+        <a (click)="openModal(office, 'Delete')"><span style="color: Tomato;"><i
+              class="fa fa-trash fa-lg pointer"></i></span></a>
       </button>
-      <ul>
-        <li><strong>Address: </strong>{{office.address}}</li>
-        <li><strong>Phone number: </strong>{{office.phoneNumber}}</li>
-        <li><strong>Email: </strong>{{office.emailAddress}}</li>
-        <li><strong>Office Capacity: </strong>{{office.capacity}}</li>
-      </ul>
+      <ul class="fa-ul">
+        <li><span class="fa-li"><i class="fas fa-map-marker-alt"></i></span>{{office.address}}</li>
+        <li><span class="fa-li"><i class="fas fa-phone"></i></span>{{office.phoneNumber}}</li>
+        <li><span class="fa-li"><i class="fas fa-envelope-open-text"></i></span>{{office.emailAddress}}</li>
+        <li><span class="fa-li"><i class="fas fa-users"></i></span>{{office.capacity}}</li>
+    </ul>
     </accordion-group>
   </accordion>
-  <a (click)="openModal(OfficeSheet)" class="fixedButton">
+  <a (click)="openModal('','Add')" class="fixedButton">
     <div class="roundedFixedBtn"><i class="fa fa-plus"></i></div>
   </a>
 
   <!-- CREATE OFFICE MODAL -->
 
-  <!-- <ng-template #OfficeSheet>
-    <form >
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-      </div>
-    </form>
-  </ng-template> -->
   <ng-template #OfficeSheet>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Add Office</h4>
+      <h4 class="modal-title pull-left">{{modalAction}} Office</h4>
       <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="officeForm" >
+
+      <!-- ADD/EDIT OFFICE FORM -->
+
+      <form [formGroup]="officeForm" *ngIf="modalAction !== 'Delete'">
         <div class="form-group">
-          <input type="text" class="form-control" id="name" placeholder="Office Name" formControlName="name" required>
+          <input [(ngModel)]="officePayload.name" type="text" class="form-control" id="name" placeholder="Office Name"
+            formControlName="name" required>
+          <div
+            *ngIf="officeForm.controls['name'].invalid && (officeForm.controls['name'].dirty || officeForm.controls['name'].touched)">
+            Please enter at least 5 characters
+          </div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="address" placeholder="Address" formControlName="address" required>
+          <input [(ngModel)]="officePayload.address" type="text" class="form-control" id="address" placeholder="Address"
+            formControlName="address" required>
+          <div
+            *ngIf="officeForm.controls['address'].invalid && (officeForm.controls['address'].dirty || officeForm.controls['address'].touched)">
+            Please enter at least 5 characters
+          </div>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" id="emailAddress" placeholder="Email Address" formControlName="emailAddress" required>
+          <input [(ngModel)]="officePayload.emailAddress" type="email" class="form-control" id="emailAddress"
+            placeholder="Email Address" formControlName="emailAddress" required>
+          <div
+            *ngIf="officeForm.controls['emailAddress'].invalid && (officeForm.controls['emailAddress'].dirty || officeForm.controls['emailAddress'].touched)">
+            Please enter a valid email
+          </div>
         </div>
         <div class="form-group">
-          <input type="number" class="form-control" id="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" required>
+          <input [(ngModel)]="officePayload.phoneNumber" type="number" class="form-control" id="phoneNumber"
+            placeholder="Phone Number" formControlName="phoneNumber" required>
+          <div
+            *ngIf="officeForm.controls['phoneNumber'].invalid && (officeForm.controls['phoneNumber'].dirty || officeForm.controls['phoneNumber'].touched)">
+            Please enter 10 digits
+          </div>
         </div>
+
         <div class="form-group">
-          <input type="number" class="form-control" id="capacity" placeholder="Maximum Capacity" formControlName="capacity" required>
+          <input [(ngModel)]="officePayload.capacity" type="number" class="form-control" id="capacity"
+            placeholder="Maximum Capacity" formControlName="capacity" required>
+          <div
+            *ngIf="officeForm.controls['capacity'].invalid && (officeForm.controls['capacity'].dirty || officeForm.controls['capacity'].touched)">
+            Come on man, please enter anything above 0
+          </div>
         </div>
-        <button (click)="addNewOffice()" [disabled]="officeForm.invalid" type="submit" class="btn btn-primary float-right">
-          Add Office
+        <button (click)="onSubmit(officePayload, modalAction)" [disabled]="officeForm.invalid" type="submit"
+          class="btn btn-primary float-right">
+          {{modalAction}} Office
         </button>
       </form>
+
+      <!-- DELETE SECTION -->
+
+      <div class="modal-body text-center" *ngIf="modalAction == 'Delete'">
+        <p>Are you sure you want to delete this office?</p>
+        <button type="button" class="btn btn-default mr-2" (click)="deleteOffice()"> Yes </button>
+        <button type="button" class="btn btn-primary" (click)="modalRef?.hide()"> No </button>
+      </div>
     </div>
   </ng-template>
 </div>

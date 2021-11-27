@@ -1,19 +1,22 @@
 <div *ngIf="employees" class="my-3">
     <h4>Staff members in office: {{employees.length}}</h4>
 </div>
-<div class="input-group mt">
+
+<!-- SEARCH -->
+
+<div class="input-group mt form-group">
     <!-- <pre class="card card-block card-header mb-3">Model: {{selected | json}}</pre> -->
-    <input [(ngModel)]="selected" [typeahead]="states" [isAnimated]="true" class="form-control"
-        placeholder="Search Employees...">
+    <input [(ngModel)]="searchText" class="form-control"
+        placeholder="Search Employees..." type="text">
     <button type="button" class="btn btn-primary">
         <i class="fas fa-search"></i>
     </button>
 </div>
 <ul class="list-group my-2">
-    <li *ngFor="let employee of employees" class="list-group-item"><i class="fa fa-user fa-lg" aria-hidden="true"></i>
+    <li *ngFor="let employee of employees | filter: searchText" class="list-group-item"><i class="fa fa-user fa-lg" aria-hidden="true"></i>
         {{employee.firstName}} {{ employee.lastName}}
         <div class="float-right">
-            <a (click)="deleteEmployee(employee.id)"><span style="color: Tomato;"><i
+            <a (click)="openModal(employee,'Delete')"><span style="color: Tomato;"><i
                         class="fa fa-trash fa-lg pointer"></i></span></a>
             <a (click)="openModal(employee,'Update')"><i class="fas fa-edit fa-lg pointer"></i> </a>
         </div>
@@ -22,7 +25,7 @@
 
 <!-- EMPLOYEE MODAL -->
 
-<ng-template #EmployeeSheet >
+<ng-template #EmployeeSheet>
     <div class="modal-header">
         <h4 class="modal-title pull-left">{{modalAction}} staff member</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close"
@@ -31,20 +34,22 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="employeeForm">
-            <div class="mb-3">
-                <input [(ngModel)]="employeeObj.firstName" type="text" formControlName="firstName" class="form-control"
-                    id="firstName" placeholder="First Name" required>
-                <div *ngIf="employeeForm.controls['firstName'].errors">
-                    First name is required, minimum of 2 characters
+        <form [formGroup]="employeeForm" *ngIf="modalAction !== 'Delete'">
+            <div class="form-group mb-3">
+                <input [(ngModel)]="employeePayload.firstName" type="text" formControlName="firstName"
+                    class="form-control" id="firstName" placeholder="First Name" required>
+                <div
+                    *ngIf="employeeForm.controls['firstName'].invalid && (employeeForm.controls['firstName'].dirty || employeeForm.controls['firstName'].touched)">
+                    Please enter at least 2 characters
                 </div>
             </div>
-            <div class="mb-3">
-                <input [(ngModel)]="employeeObj.lastName" type="text" formControlName="lastName" class="form-control"
-                    id="lastName" placeholder="Last Name" required>
+            <div class="form-group mb-3">
+                <input [(ngModel)]="employeePayload.lastName" type="text" formControlName="lastName"
+                    class="form-control" id="lastName" placeholder="Last Name" required>
             </div>
-            <div *ngIf="employeeForm.controls['lastName'].errors">
-                Last name is required, minimum of 2 characters
+            <div
+                *ngIf="employeeForm.controls['lastName'].invalid && (employeeForm.controls['lastName'].dirty || employeeForm.controls['lastName'].touched)">
+                Please enter at least 2 characters
             </div>
 
             <!-- SUBMIT BUTTONS -->
@@ -58,9 +63,14 @@
                 type="submit" class="btn btn-primary float-right">{{modalAction}}
             </button>
         </form>
+        <div class="modal-body text-center" *ngIf="modalAction == 'Delete'">
+            <p>Are you sure you want to delete this employee??</p>
+            <button type="button" class="btn btn-default mr-2" (click)="deleteEmployee()"> Yes </button>
+            <button type="button" class="btn btn-primary" (click)="modalRef?.hide()"> No </button>
+        </div>
     </div>
 </ng-template>
 
-<a (click)="openModal('','Add');" class="fixedButton">
+<a (click)="openModal('','Add');" class="fixedButton" >
     <div class="roundedFixedBtn"><i class="fa fa-plus"></i></div>
 </a>

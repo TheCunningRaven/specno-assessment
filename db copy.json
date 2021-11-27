@@ -4,31 +4,31 @@
       "id": 1,
       "name": "Century City HQ",
       "address": "19 Coventry road bryanston",
-      "email": "officeExample@gmail.com",
-      "number": "+27769715222",
+      "emailAddress": "officeExample@gmail.com",
+      "phoneNumber": "0769715222",
       "capacity": 25
     },
     {
-      "id": 2,
       "name": "Durban",
       "address": "12 Seashell Monkey Road",
       "emailAddress": "durbanOffice@gmail.com",
-      "phoneNumber": "+2823344812",
-      "capacity": 20
+      "phoneNumber": "0823344812",
+      "capacity": 21,
+      "id": 2
     },
     {
-      "id": 3,
       "name": "Lesotho",
       "address": "11 Snowy Mountain street",
-      "phoneNumber": "+2792743219",
       "emailAddress": "lesotho@gmail.com",
-      "capacity": 15
+      "phoneNumber": 7927432132,
+      "capacity": 15,
+      "id": 3
     },
     {
       "id": 4,
       "name": "Bloem Office",
       "address": "31 Jacaranda street",
-      "phoneNumber": "+277694252212",
+      "phoneNumber": "0792743219",
       "emailAddress": "bloem@gmail.com",
       "capacity": 17
     }

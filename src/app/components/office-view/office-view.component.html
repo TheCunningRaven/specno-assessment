@@ -4,14 +4,14 @@
 
 <accordion [isAnimated]="true">
     <accordion-group heading="{{office.name}}" [isOpen]="true">
-        <ul>
-            <li><strong>Address: </strong>{{office.address}}</li>
-            <li><strong>Phone number: </strong>{{office.phoneNumber}}</li>
-            <li><strong>Email: </strong>{{office.emailAddress}}</li>
-            <li><strong>Office Capacity: </strong>{{office.capacity}}</li>
-          </ul>
+        <ul class="fa-ul">
+            <li><span class="fa-li"><i class="fas fa-map-marker-alt"></i></span>{{office.address}}</li>
+            <li><span class="fa-li"><i class="fas fa-phone"></i></span>{{office.phoneNumber}}</li>
+            <li><span class="fa-li"><i class="fas fa-envelope-open-text"></i></span>{{office.emailAddress}}</li>
+            <li><span class="fa-li"><i class="fas fa-users"></i></span>{{office.capacity}}</li>
+        </ul>
     </accordion-group>
 </accordion>
 
 <!-- EMPLOYEE LIST -->
-<app-employees [selectedOffice]="office" ></app-employees>
+<app-employees [selectedOffice]="office"></app-employees>
