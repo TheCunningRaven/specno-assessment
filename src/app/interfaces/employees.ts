@@ -3,4 +3,5 @@ export interface IEmployee {
     officeId: number;
     firstName: string;
     lastName: string;
+    avatarUrl:string
 }

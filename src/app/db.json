@@ -2,10 +2,11 @@
   "offices": [
     {
       "name": "Century City HQ",
-      "address": "19 Coventry road bryanston",
-      "emailAddress": "officeExample@gmail.com",
+      "address": "21 Spurwing Avenu",
+      "emailAddress": "ctHq@gmail.com",
       "phoneNumber": "0769715222",
       "capacity": 6,
+      "colour": "blue",
       "id": 1
     },
     {
@@ -14,14 +15,16 @@
       "emailAddress": "durbanOffice@gmail.com",
       "phoneNumber": "0823344812",
       "capacity": 5,
+      "colour": "violet",
       "id": 2
     },
     {
       "name": "Lesotho",
       "address": "11 Snowy Mountain street",
       "emailAddress": "lesotho@gmail.com",
-      "phoneNumber": 7927432132,
+      "phoneNumber": "0823344812",
       "capacity": 7,
+      "colour": "green",
       "id": 3
     },
     {
@@ -30,33 +33,45 @@
       "emailAddress": "bloem@gmail.com",
       "phoneNumber": "0792743219",
       "capacity": 4,
+      "colour": "red",
       "id": 4
     }
   ],
   "employees": [
     {
+      "id": 1,
       "officeId": 1,
       "firstName": "Duncan",
       "lastName": "Forssman",
-      "id": 1
+      "avatarUrl": "assets/images/avatar2.png"
     },
     {
+      "id": 2,
       "officeId": 2,
       "firstName": "Richard",
       "lastName": "Daniardo",
-      "id": 2
+      "avatarUrl": "assets/images/avatar4.png"
     },
     {
+      "id": 3,
       "officeId": 3,
       "firstName": "Daniel",
       "lastName": "Richardo",
-      "id": 3
+      "avatarUrl": "assets/images/avatar2.png"
     },
     {
+      "id": 4,
       "officeId": 4,
       "firstName": "Vebastion",
       "lastName": "Settel",
-      "id": 4
+      "avatarUrl": "assets/images/avatar3.png"
+    },
+    {
+      "id": 5,
+      "officeId": 1,
+      "firstName": "Phil",
+      "lastName": "DeWet",
+      "avatarUrl": "assets/images/avatar5.png"
     }
   ]
 }

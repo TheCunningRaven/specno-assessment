@@ -14,25 +14,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class OfficeComponent implements OnInit {
 
   @ViewChild('OfficeSheet') public OfficeSheet;
-  
+
   //Modal Variables
   modalAction = '';
   modalRef?: BsModalRef;
-  
+
   //General Variabls
   offices: IOffice[];
   officeForm: FormGroup;
-  officePayload:IOffice = {
+  officePayload: IOffice = {
     id: 0,
     name: '',
     address: '',
     emailAddress: '',
     phoneNumber: 0,
     capacity: 0,
+    colour:''
   }
   errorMsg = '';
-
-
+  colours = [
+    'red',
+    'green',
+    'yellow',
+    'orange',
+    'blue',
+    'violet'
+  ]
   constructor(
     private apiService: ApiService,
     private service: SharedService,
@@ -45,15 +52,28 @@ export class OfficeComponent implements OnInit {
     this.getOffices();
     this.initialiseForm();
   }
-
+  onSubmit(action: string) {
+    if (action == 'Add')
+      this.addNewOffice();
+    if (action == 'Update')
+      this.updateOffice();
+    if (action == 'Delete') {
+      this.deleteOffice();
+    }
+  }
   addNewOffice() {
-    this.apiService.addOffice(this.officeForm.value).subscribe(response => {
-      this.getOffices();
+    if (this.offices.length < 5) {
+      this.apiService.addOffice(this.officeForm.value).subscribe(response => {
+        this.getOffices();
+        this.modalRef?.hide();
+        this.officeForm.reset();
+      }, error => {
+        console.log(error);
+      });
+    } else {
       this.modalRef?.hide();
-      this.officeForm.reset();
-    }, error => {
-      console.log(error);
-    });
+      alert('Please raise more capital');
+    }
   }
 
   getOffices() {
@@ -64,6 +84,7 @@ export class OfficeComponent implements OnInit {
     });
   }
   updateOffice() {
+   
     this.apiService.updateOffice(this.officePayload.id, this.officeForm.value).subscribe(response => {
       this.getOffices();
       this.modalRef?.hide();
@@ -88,27 +109,21 @@ export class OfficeComponent implements OnInit {
     this.router.navigate(['/office-view']);
   }
 
-  onSubmit(officeData: any, action: string) {
-    if (action == 'Add')
-      this.addNewOffice();
-    if (action == 'Update')
-      this.updateOffice();
-    else {
-      this.deleteOffice();
-    }
-  }
+  
 
   openModal(officeDataFromTemplate: any, action: string) {
     this.modalAction = action;
     this.modalRef = this.modalService.show(this.OfficeSheet);
 
     if (action == 'Update')
+      //
       this.officePayload.id = officeDataFromTemplate.id;
-    this.officePayload.name = officeDataFromTemplate.name;
-    this.officePayload.address = officeDataFromTemplate.address;
-    this.officePayload.emailAddress = officeDataFromTemplate.emailAddress;
-    this.officePayload.phoneNumber = officeDataFromTemplate.phoneNumber;
-    this.officePayload.capacity = officeDataFromTemplate.capacity;
+      this.officePayload.name = officeDataFromTemplate.name;
+      this.officePayload.address = officeDataFromTemplate.address;
+      this.officePayload.emailAddress = officeDataFromTemplate.emailAddress;
+      this.officePayload.phoneNumber = officeDataFromTemplate.phoneNumber;
+      this.officePayload.capacity = officeDataFromTemplate.capacity;
+      this.officePayload.colour = officeDataFromTemplate.colour;
     if (action == 'Delete')
       this.officePayload.id = officeDataFromTemplate.id;
   }
@@ -136,6 +151,9 @@ export class OfficeComponent implements OnInit {
         Validators.required,
         Validators.minLength(1)
       ]],
+      colour:['',[
+        Validators.required
+      ]]
     })
   }
 }

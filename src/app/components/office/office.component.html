@@ -1,7 +1,7 @@
 <!-- OFFICES ACCORDION  -->
 <div class="my-2">
-  <accordion class="custom" [isAnimated]="true" [closeOthers]="true">
-    <accordion-group [panelClass]="'custom'" *ngFor="let office of offices" heading="{{office.name}} ">
+  <accordion  [isAnimated]="true" [closeOthers]="true">
+    <accordion-group class="colour-{{office.colour}}" *ngFor="let office of offices" heading="{{office.name}}">
       <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading
         type="button">
         <div class="pull-left float-left" style="max-height: 50px;">
@@ -18,7 +18,7 @@
         <li><span class="fa-li"><i class="fas fa-phone"></i></span>{{office.phoneNumber}}</li>
         <li><span class="fa-li"><i class="fas fa-envelope-open-text"></i></span>{{office.emailAddress}}</li>
         <li><span class="fa-li"><i class="fas fa-users"></i></span>{{office.capacity}}</li>
-    </ul>
+      </ul>
     </accordion-group>
   </accordion>
   <a (click)="openModal('','Add')" class="fixedButton">
@@ -64,14 +64,13 @@
           </div>
         </div>
         <div class="form-group">
-          <input [(ngModel)]="officePayload.phoneNumber" type="number" class="form-control" id="phoneNumber"
+          <input [(ngModel)]="officePayload.phoneNumber" type="tel" class="form-control" id="phoneNumber"
             placeholder="Phone Number" formControlName="phoneNumber" required>
           <div
             *ngIf="officeForm.controls['phoneNumber'].invalid && (officeForm.controls['phoneNumber'].dirty || officeForm.controls['phoneNumber'].touched)">
             Please enter 10 digits
           </div>
         </div>
-
         <div class="form-group">
           <input [(ngModel)]="officePayload.capacity" type="number" class="form-control" id="capacity"
             placeholder="Maximum Capacity" formControlName="capacity" required>
@@ -80,10 +79,16 @@
             Come on man, please enter anything above 0
           </div>
         </div>
-        <button (click)="onSubmit(officePayload, modalAction)" [disabled]="officeForm.invalid" type="submit"
+        <p>Please select an office colour: </p>
+        <div *ngFor="let colour of colours" class="form-group" style="display: inline-block;">
+          <input [(ngModel)]="officePayload.colour" class="form-control" type="radio" name="colour" formControlName="colour" id="{{colour}}" value="{{colour}}"/>
+          <label for="{{colour}}"><span class="{{colour}}"></span></label>
+        </div>        
+        <button (click)="onSubmit(modalAction)" [disabled]="officeForm.invalid" type="submit"
           class="btn btn-primary float-right">
           {{modalAction}} Office
         </button>
+
       </form>
 
       <!-- DELETE SECTION -->

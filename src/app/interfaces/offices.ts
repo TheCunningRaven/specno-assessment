@@ -7,4 +7,5 @@ export interface IOffice {
     phoneNumber: number;
     emailAddress: string;
     capacity: number;
+    colour:string
 }

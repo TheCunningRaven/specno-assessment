@@ -6,16 +6,15 @@
 
 <div class="input-group mt form-group">
     <!-- <pre class="card card-block card-header mb-3">Model: {{selected | json}}</pre> -->
-    <input [(ngModel)]="searchText" class="form-control"
-        placeholder="Search Employees..." type="text">
+    <input [(ngModel)]="searchText" class="form-control" placeholder="Search Employees..." type="text">
     <button type="button" class="btn btn-primary">
         <i class="fas fa-search"></i>
     </button>
 </div>
 <ul class="list-group my-2">
-    <li *ngFor="let employee of employees | filter: searchText" class="list-group-item"><i class="fa fa-user fa-lg" aria-hidden="true"></i>
+    <li *ngFor="let employee of employees | filter: searchText" class="list-group-item"><img src="{{employee.avatarUrl}}" alt="avatar" class="avatar-small">
         {{employee.firstName}} {{ employee.lastName}}
-        <div class="float-right">
+        <div class="float-right " style="display: inline-block;">
             <a (click)="openModal(employee,'Delete')"><span style="color: Tomato;"><i
                         class="fa fa-trash fa-lg pointer"></i></span></a>
             <a (click)="openModal(employee,'Update')"><i class="fas fa-edit fa-lg pointer"></i> </a>
@@ -51,11 +50,15 @@
                 *ngIf="employeeForm.controls['lastName'].invalid && (employeeForm.controls['lastName'].dirty || employeeForm.controls['lastName'].touched)">
                 Please enter at least 2 characters
             </div>
-
-            <!-- SUBMIT BUTTONS -->
-            <div *ngIf="errorMsg">
-                {{errorMsg}}
+            <p>Please select an avatar:</p>
+            <div *ngFor="let avatar of avatars" class="form-group" style="display: inline-block;">
+                <label>
+                    <input type="radio" [(ngModel)]="employeePayload.avatarUrl" formControlName="avatarUrl"
+                        class="form-control" id="avatarUrl" value="{{avatar}}">
+                    <img class="avatar" src="{{avatar}}" alt="avatar">
+                </label>
             </div>
+            <!-- SUBMIT BUTTONS -->
             <button [disabled]="employeeForm.invalid" *ngIf="modalAction =='Update'" (click)="updateEmployee()"
                 type="submit" class="btn btn-primary float-right">{{modalAction}}
             </button>
@@ -71,6 +74,6 @@
     </div>
 </ng-template>
 
-<a (click)="openModal('','Add');" class="fixedButton" >
+<a (click)="openModal('','Add');" class="fixedButton">
     <div class="roundedFixedBtn"><i class="fa fa-plus"></i></div>
 </a>

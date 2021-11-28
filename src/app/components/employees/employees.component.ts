@@ -26,6 +26,7 @@ export class EmployeesComponent implements OnInit {
     officeId: 0,
     firstName: '',
     lastName: '',
+    avatarUrl: '',
   };
 
   errorMsg = '';
@@ -37,6 +38,13 @@ export class EmployeesComponent implements OnInit {
     'Arkansas',
     'California'
   ];
+  avatars = [
+    'assets/images/avatar1.png',
+    'assets/images/avatar2.png',
+    'assets/images/avatar3.png',
+    'assets/images/avatar4.png',
+    'assets/images/avatar5.png',
+  ]
 
   constructor(
     private modalService: BsModalService,
@@ -44,6 +52,15 @@ export class EmployeesComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
+  onSubmit(employeeData: any, action: string) {
+    if (action == 'Add') //Yes this could have been a switch statment, but it wouldn't be much cleaner
+      this.addNewEmployee();
+    if (action == 'Update')
+      this.updateEmployee();
+    else {
+      this.deleteEmployee();
+    }
+  }
   ngOnInit(): void {
     this.getEmployees();
     this.initialiseForm();
@@ -69,6 +86,7 @@ export class EmployeesComponent implements OnInit {
   getEmployees() {
     this.apiService.getEmployeesByOfficeId(this.selectedOffice.id).subscribe(response => {
       this.employees = response;
+      console.log( this.employees);
     }, error => {
       console.log(error);
     });
@@ -93,15 +111,7 @@ export class EmployeesComponent implements OnInit {
     });
     this.modalRef?.hide();
   }
-  onSubmit(employeeData: any, action: string) {
-    if (action == 'Add')
-      this.addNewEmployee();
-    if (action == 'Update')
-      this.updateEmployee();
-    else {
-      this.deleteEmployee();
-    }
-  }
+  
   openModal(employeeDataFromTemplate: any, action: string) {
     this.modalAction = action;
     this.modalRef = this.modalService.show(this.EmployeeSheet);
@@ -111,6 +121,7 @@ export class EmployeesComponent implements OnInit {
     this.employeePayload.firstName = employeeDataFromTemplate.firstName;
     this.employeePayload.lastName = employeeDataFromTemplate.lastName;
     this.employeePayload.officeId = employeeDataFromTemplate.officeId;
+    this.employeePayload.avatarUrl = employeeDataFromTemplate.avatarUrl;
     if (action == 'Delete')
       this.employeePayload.id = employeeDataFromTemplate.id;
   }
@@ -126,6 +137,9 @@ export class EmployeesComponent implements OnInit {
         Validators.required,
         Validators.minLength(2)
       ]],
+      avatarUrl:['',[
+        Validators.required
+      ]]
     })
   }
 }
