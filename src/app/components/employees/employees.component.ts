@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IEmployee } from 'src/app/interfaces/employees';
 import { ApiService } from 'src/app/services/api.service';
@@ -21,9 +21,9 @@ export class EmployeesComponent implements OnInit {
   employeeForm: FormGroup;
   employees: IEmployee[];
   searchText = '';
-  employeePayload:IEmployee = {
+  employeePayload: IEmployee = {
     id: 0,
-    officeId: this.selectedOffice.id,
+    officeId: 0,
     firstName: '',
     lastName: '',
   };
@@ -50,13 +50,20 @@ export class EmployeesComponent implements OnInit {
     // this.employeeForm.valueChanges.subscribe(console.log);
   }
   addNewEmployee() {
-    this.apiService.addEmployee(this.employeeForm.value).subscribe(response => {
-      this.getEmployees();
+    if (this.employees.length < this.selectedOffice.capacity) {
+      this.employeeForm.value.officeId = this.selectedOffice.id;
+      this.apiService.addEmployee(this.employeeForm.value).subscribe(response => {
+        this.getEmployees();
+        this.modalRef?.hide();
+        this.employeeForm.reset();
+      }, error => {
+        console.log(error);
+      });
+    }
+    else {
       this.modalRef?.hide();
-      this.employeeForm.reset();
-    }, error => {
-      console.log(error);
-    });
+      alert('Office is at capacity');
+    }
   }
 
   getEmployees() {
@@ -101,16 +108,16 @@ export class EmployeesComponent implements OnInit {
 
     if (action == 'Update')
       this.employeePayload.id = employeeDataFromTemplate.id;
-      this.employeePayload.firstName = employeeDataFromTemplate.firstName;
-      this.employeePayload.lastName = employeeDataFromTemplate.lastName;
-      this.employeePayload.officeId = employeeDataFromTemplate.officeId;
+    this.employeePayload.firstName = employeeDataFromTemplate.firstName;
+    this.employeePayload.lastName = employeeDataFromTemplate.lastName;
+    this.employeePayload.officeId = employeeDataFromTemplate.officeId;
     if (action == 'Delete')
       this.employeePayload.id = employeeDataFromTemplate.id;
   }
 
-  initialiseForm(){
+  initialiseForm() {
     this.employeeForm = this.formBuilder.group({
-      officeId: [this.selectedOffice.id],
+      officeId: 0,
       firstName: ['', [
         Validators.required,
         Validators.minLength(2)

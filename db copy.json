@@ -1,19 +1,19 @@
 {
   "offices": [
     {
-      "id": 1,
       "name": "Century City HQ",
       "address": "19 Coventry road bryanston",
       "emailAddress": "officeExample@gmail.com",
       "phoneNumber": "0769715222",
-      "capacity": 25
+      "capacity": 6,
+      "id": 1
     },
     {
       "name": "Durban",
       "address": "12 Seashell Monkey Road",
       "emailAddress": "durbanOffice@gmail.com",
       "phoneNumber": "0823344812",
-      "capacity": 21,
+      "capacity": 5,
       "id": 2
     },
     {
@@ -21,36 +21,42 @@
       "address": "11 Snowy Mountain street",
       "emailAddress": "lesotho@gmail.com",
       "phoneNumber": 7927432132,
-      "capacity": 15,
+      "capacity": 7,
       "id": 3
     },
     {
-      "id": 4,
       "name": "Bloem Office",
       "address": "31 Jacaranda street",
-      "phoneNumber": "0792743219",
       "emailAddress": "bloem@gmail.com",
-      "capacity": 17
+      "phoneNumber": "0792743219",
+      "capacity": 4,
+      "id": 4
     }
   ],
   "employees": [
     {
-      "id": 1,
-      "officeId": 2,
-      "firstName": "Richards",
-      "lastName": "Daniardos"
-    },
-    {
-      "id": 2,
       "officeId": 1,
       "firstName": "Duncan",
-      "lastName": "Forssmans"
+      "lastName": "Forssman",
+      "id": 1
     },
     {
-      "id": 3,
       "officeId": 2,
-      "firstName": "Duncan",
-      "lastName": "Forssman"
+      "firstName": "Richard",
+      "lastName": "Daniardo",
+      "id": 2
+    },
+    {
+      "officeId": 3,
+      "firstName": "Daniel",
+      "lastName": "Richardo",
+      "id": 3
+    },
+    {
+      "officeId": 4,
+      "firstName": "Vebastion",
+      "lastName": "Settel",
+      "id": 4
     }
   ]
 }

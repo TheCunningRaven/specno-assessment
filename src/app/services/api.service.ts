@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { IOffice } from '../interfaces/offices';
 import { IEmployee } from '../interfaces/employees';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
 @Injectable({
@@ -57,8 +57,8 @@ export class ApiService {
 
   // EMPLOYEES
 
-  getEmployeesByOfficeId(employeeId: number): Observable<IEmployee[]> {
-    return this.http.get<any>(this.baseUrl + `employees?officeId=${employeeId}`).pipe(
+  getEmployeesByOfficeId(employeeOfficeId: number): Observable<IEmployee[]> {
+    return this.http.get<any>(this.baseUrl + `employees?officeId=${employeeOfficeId}`).pipe(
       catchError(this.handleError)
     );
   }
