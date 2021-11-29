@@ -13,10 +13,12 @@
           <hr>
           <p><strong>{{office.capacity}} </strong>Staff Members in Office</p>
         </div>
-        <a (click)="goToOfficeView(office)"><i class="fa fa-arrow-circle-right fa-lg float-right"></i></a>
-        <a (click)="openModal(office,'Update')"><i class="fas fa-edit fa-lg float-right"></i></a>
-        <a (click)="openModal(office, 'Delete')"><span style="color: Tomato;"><i
+        <div style="display: inline-block;" class="float-right">
+        <a (click)="goToOfficeView(office)"><i class="fa fa-arrow-circle-right fa-lg" style="color: #0D4477;"></i></a>
+        <a (click)="openModal(office,'Update')"><i class="fas fa-edit fa-lg"></i></a>
+        <a (click)="openModal(office, 'Delete')"><span style="color: rgb(226, 50, 19);"><i
               class="fa fa-trash fa-lg pointer"></i></span></a>
+            </div>
       </button>
       <!-- ACCORDION BODY -->
       <ul class="fa-ul">

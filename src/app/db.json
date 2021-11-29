@@ -6,7 +6,7 @@
       "emailAddress": "ctHq@gmail.com",
       "phoneNumber": "0769715222",
       "capacity": 6,
-      "colour": "orange",
+      "colour": "violet",
       "id": 1
     },
     {
@@ -43,7 +43,7 @@
       "officeId": 1,
       "firstName": "Duncan",
       "lastName": "Forssman",
-      "avatarUrl": "assets/images/avatar2.png"
+      "avatarUrl": "assets/images/avatar3.png"
     },
     {
       "id": 2,
