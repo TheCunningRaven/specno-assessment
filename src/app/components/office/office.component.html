@@ -1,9 +1,14 @@
 <!-- OFFICES ACCORDION  -->
+
 <div class="my-2">
   <accordion  [isAnimated]="true" [closeOthers]="true">
-    <accordion-group class="colour-{{office.colour}}" *ngFor="let office of offices" heading="{{office.name}}">
-      <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" accordion-heading
-        type="button">
+    <accordion-group *ngFor="let office of offices" 
+                      class="colour-{{office.colour}}"  
+                      heading="{{office.name}}"
+                      >
+      <button class="btn btn-link btn-block justify-content-between d-flex w-100  shadow-none" 
+              accordion-heading
+              type="button">
         <div class="pull-left float-left" style="max-height: 50px;">
           <hr>
           <p><strong>{{office.capacity}} </strong>Staff Members in Office</p>
@@ -13,6 +18,7 @@
         <a (click)="openModal(office, 'Delete')"><span style="color: Tomato;"><i
               class="fa fa-trash fa-lg pointer"></i></span></a>
       </button>
+      <!-- ACCORDION BODY -->
       <ul class="fa-ul">
         <li><span class="fa-li"><i class="fas fa-map-marker-alt"></i></span>{{office.address}}</li>
         <li><span class="fa-li"><i class="fas fa-phone"></i></span>{{office.phoneNumber}}</li>
@@ -30,7 +36,11 @@
   <ng-template #OfficeSheet>
     <div class="modal-header">
       <h4 class="modal-title pull-left">{{modalAction}} Office</h4>
-      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <button (click)="modalRef?.hide()" 
+              class="close btn-close pull-right" 
+              type="button"  
+              aria-label="Close" 
+              >
         <span aria-hidden="true" class="visually-hidden">&times;</span>
       </button>
     </div>
@@ -40,54 +50,104 @@
 
       <form [formGroup]="officeForm" *ngIf="modalAction !== 'Delete'">
         <div class="form-group">
-          <input [(ngModel)]="officePayload.name" type="text" class="form-control" id="name" placeholder="Office Name"
-            formControlName="name" required>
-          <div
+          <input [(ngModel)]="officePayload.name" 
+                formControlName="name" 
+                class="form-control"  
+                type="text" 
+                id="name" 
+                placeholder="Office Name"
+                required>
+          <div #ValidationMessage
             *ngIf="officeForm.controls['name'].invalid && (officeForm.controls['name'].dirty || officeForm.controls['name'].touched)">
             Please enter at least 5 characters
           </div>
         </div>
         <div class="form-group">
-          <input [(ngModel)]="officePayload.address" type="text" class="form-control" id="address" placeholder="Address"
-            formControlName="address" required>
-          <div
+          <input [(ngModel)]="officePayload.address" 
+                formControlName="address"  
+                class="form-control" 
+                type="text" id="address" 
+                placeholder="Address"
+                required
+                >
+          <div #ValidationMessage
             *ngIf="officeForm.controls['address'].invalid && (officeForm.controls['address'].dirty || officeForm.controls['address'].touched)">
             Please enter at least 5 characters
           </div>
         </div>
         <div class="form-group">
-          <input [(ngModel)]="officePayload.emailAddress" type="email" class="form-control" id="emailAddress"
-            placeholder="Email Address" formControlName="emailAddress" required>
-          <div
+          <input [(ngModel)]="officePayload.emailAddress" 
+                formControlName="emailAddress" 
+                class="form-control" 
+                type="email"  
+                id="emailAddress"
+                placeholder="Email Address" 
+                required
+                >
+          <div #ValidationMessage
             *ngIf="officeForm.controls['emailAddress'].invalid && (officeForm.controls['emailAddress'].dirty || officeForm.controls['emailAddress'].touched)">
             Please enter a valid email
           </div>
         </div>
         <div class="form-group">
-          <input [(ngModel)]="officePayload.phoneNumber" type="tel" class="form-control" id="phoneNumber"
-            placeholder="Phone Number" formControlName="phoneNumber" required>
-          <div
+          <input [(ngModel)]="officePayload.phoneNumber" 
+                formControlName="phoneNumber" 
+                class="form-control" 
+                type="tel" 
+                id="phoneNumber"
+                placeholder="Phone Number" 
+                required
+                >
+          <div #ValidationMessage
             *ngIf="officeForm.controls['phoneNumber'].invalid && (officeForm.controls['phoneNumber'].dirty || officeForm.controls['phoneNumber'].touched)">
             Please enter 10 digits
           </div>
         </div>
         <div class="form-group">
-          <input [(ngModel)]="officePayload.capacity" type="number" class="form-control" id="capacity"
-            placeholder="Maximum Capacity" formControlName="capacity" required>
-          <div
+          <input [(ngModel)]="officePayload.capacity" 
+                formControlName="capacity" 
+                class="form-control" 
+                type="number" 
+                id="capacity"
+                placeholder="Maximum Capacity" 
+                required
+                >
+          <div #ValidationMessage
             *ngIf="officeForm.controls['capacity'].invalid && (officeForm.controls['capacity'].dirty || officeForm.controls['capacity'].touched)">
             Come on man, please enter anything above 0
           </div>
         </div>
         <p>Please select an office colour: </p>
-        <div *ngFor="let colour of colours" class="form-group" style="display: inline-block;">
-          <input [(ngModel)]="officePayload.colour" class="form-control" type="radio" name="colour" formControlName="colour" id="{{colour}}" value="{{colour}}"/>
+        <div *ngFor="let colour of colours" 
+              class="form-group" 
+              style="display: inline-block;"
+              >
+          <input [(ngModel)]="officePayload.colour" 
+                formControlName="colour" 
+                class="form-control" 
+                type="radio" 
+                name="colour" 
+                id="{{colour}}" 
+                value="{{colour}}"
+                />
           <label for="{{colour}}"><span class="{{colour}}"></span></label>
         </div>        
-        <button (click)="onSubmit(modalAction)" [disabled]="officeForm.invalid" type="submit"
-          class="btn btn-primary float-right">
-          {{modalAction}} Office
-        </button>
+        <button *ngIf="modalAction =='Update'" 
+                    (click)="updateOffice()" 
+                    [disabled]="officeForm.invalid" 
+                    type="submit" 
+                    class="btn btn-primary float-right"
+                    >
+                    {{modalAction}}
+            </button>
+            <button *ngIf="modalAction =='Add'" 
+                    (click)="addNewOffice()" 
+                    [disabled]="officeForm.invalid" 
+                    type="submit" 
+                    class="btn btn-primary float-right"
+                    >
+                    {{modalAction}}
+            </button>
 
       </form>
 
@@ -95,8 +155,8 @@
 
       <div class="modal-body text-center" *ngIf="modalAction == 'Delete'">
         <p>Are you sure you want to delete this office?</p>
-        <button type="button" class="btn btn-default mr-2" (click)="deleteOffice()"> Yes </button>
-        <button type="button" class="btn btn-primary" (click)="modalRef?.hide()"> No </button>
+        <button  (click)="deleteOffice()" type="button" class="btn btn-default mr-2"> Yes </button>
+        <button (click)="modalRef?.hide()" type="button" class="btn btn-primary" > No </button>
       </div>
     </div>
   </ng-template>

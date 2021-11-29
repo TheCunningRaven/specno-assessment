@@ -10,17 +10,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./employees.component.scss']
 })
 export class EmployeesComponent implements OnInit {
+  //Input office variable from parent component
   @Input() selectedOffice: any = {};
+  //Select employee sheet from template
   @ViewChild('EmployeeSheet') public EmployeeSheet;
 
-  // Modal Variables
-  modalRef?: BsModalRef;
-  modalAction = '';
-
-  //General Variables
+  //Employee Variables
   employeeForm: FormGroup;
   employees: IEmployee[];
-  searchText = '';
   employeePayload: IEmployee = {
     id: 0,
     officeId: 0,
@@ -29,15 +26,11 @@ export class EmployeesComponent implements OnInit {
     avatarUrl: '',
   };
 
+  // General Variables
+  modalRef?: BsModalRef;
+  modalAction = '';
+  searchText = '';
   errorMsg = '';
-  selected?: string;
-  states: string[] = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California'
-  ];
   avatars = [
     'assets/images/avatar1.png',
     'assets/images/avatar2.png',
@@ -52,15 +45,6 @@ export class EmployeesComponent implements OnInit {
     private formBuilder: FormBuilder
   ) { }
 
-  onSubmit(employeeData: any, action: string) {
-    if (action == 'Add') //Yes this could have been a switch statment, but it wouldn't be much cleaner
-      this.addNewEmployee();
-    if (action == 'Update')
-      this.updateEmployee();
-    else {
-      this.deleteEmployee();
-    }
-  }
   ngOnInit(): void {
     this.getEmployees();
     this.initialiseForm();
@@ -86,7 +70,6 @@ export class EmployeesComponent implements OnInit {
   getEmployees() {
     this.apiService.getEmployeesByOfficeId(this.selectedOffice.id).subscribe(response => {
       this.employees = response;
-      console.log( this.employees);
     }, error => {
       console.log(error);
     });
@@ -115,15 +98,12 @@ export class EmployeesComponent implements OnInit {
   openModal(employeeDataFromTemplate: any, action: string) {
     this.modalAction = action;
     this.modalRef = this.modalService.show(this.EmployeeSheet);
-
-    if (action == 'Update')
-      this.employeePayload.id = employeeDataFromTemplate.id;
+    //Assign required fields for employee payload
+    this.employeePayload.id = employeeDataFromTemplate.id;
     this.employeePayload.firstName = employeeDataFromTemplate.firstName;
     this.employeePayload.lastName = employeeDataFromTemplate.lastName;
     this.employeePayload.officeId = employeeDataFromTemplate.officeId;
     this.employeePayload.avatarUrl = employeeDataFromTemplate.avatarUrl;
-    if (action == 'Delete')
-      this.employeePayload.id = employeeDataFromTemplate.id;
   }
 
   initialiseForm() {

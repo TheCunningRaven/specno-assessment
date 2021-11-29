@@ -12,14 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./office.component.scss']
 })
 export class OfficeComponent implements OnInit {
-
+  //Select office sheet from template
   @ViewChild('OfficeSheet') public OfficeSheet;
 
-  //Modal Variables
-  modalAction = '';
-  modalRef?: BsModalRef;
-
-  //General Variabls
+  //Office Variabls
   offices: IOffice[];
   officeForm: FormGroup;
   officePayload: IOffice = {
@@ -30,8 +26,11 @@ export class OfficeComponent implements OnInit {
     phoneNumber: 0,
     capacity: 0,
     colour:''
-  }
+  }  
+  //General Variables
   errorMsg = '';
+  modalAction = '';
+  modalRef?: BsModalRef;
   colours = [
     'red',
     'green',
@@ -52,15 +51,7 @@ export class OfficeComponent implements OnInit {
     this.getOffices();
     this.initialiseForm();
   }
-  onSubmit(action: string) {
-    if (action == 'Add')
-      this.addNewOffice();
-    if (action == 'Update')
-      this.updateOffice();
-    if (action == 'Delete') {
-      this.deleteOffice();
-    }
-  }
+
   addNewOffice() {
     if (this.offices.length < 5) {
       this.apiService.addOffice(this.officeForm.value).subscribe(response => {
@@ -109,14 +100,10 @@ export class OfficeComponent implements OnInit {
     this.router.navigate(['/office-view']);
   }
 
-  
-
   openModal(officeDataFromTemplate: any, action: string) {
     this.modalAction = action;
     this.modalRef = this.modalService.show(this.OfficeSheet);
-
-    if (action == 'Update')
-      //
+      //Assign required fields for office payload
       this.officePayload.id = officeDataFromTemplate.id;
       this.officePayload.name = officeDataFromTemplate.name;
       this.officePayload.address = officeDataFromTemplate.address;
@@ -124,8 +111,6 @@ export class OfficeComponent implements OnInit {
       this.officePayload.phoneNumber = officeDataFromTemplate.phoneNumber;
       this.officePayload.capacity = officeDataFromTemplate.capacity;
       this.officePayload.colour = officeDataFromTemplate.colour;
-    if (action == 'Delete')
-      this.officePayload.id = officeDataFromTemplate.id;
   }
   initialiseForm() {
     //just made this method to remove this mess from the ngOnInit...

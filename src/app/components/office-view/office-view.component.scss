@@ -1,11 +1,11 @@
-.round {
+.round-previous {
     border-radius: 50%;
-
-  }
-  .previous {
+    height: 35px;
+    width: 40px;
+    // font-size: 15px;
     background-color: #f1f1f1;
     color: black;
-  }
+}
   a {
     text-decoration: none;
     display: inline-block;
@@ -21,6 +21,8 @@
   
           .btn-link {
             color: rgb(6, 10, 9); //accordion heading buttons style
+            font-weight: bold;
+            text-decoration: none;
           }
         }
   

@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300);
 $colors: (
   red: #db2828,
   orange: #f2711c,
@@ -14,6 +15,7 @@ accordion-group {
         border-left: 5px solid #276daf;
         .btn-link {
           color: rgb(6, 10, 9); //accordion heading buttons style
+          text-decoration: none;
         }
       }
 
@@ -78,11 +80,6 @@ accordion-group.colour-violet {
   }
 }
 
-
-@import url(https://fonts.googleapis.com/css?family=Lato:400,300);
-
-
-
 * {
   box-sizing: border-box;
 }
@@ -103,7 +100,7 @@ input[type="radio"] {
       transform: scale(1.25);
     }
     @each $name, $value in $colors {
-      .#{$name} {
+      .#{"" + $name} {
         border: 2px solid darken($value, 25%);
       }
     } // !@each
@@ -128,7 +125,7 @@ label {
     border-radius: 50%;
     transition: transform 0.2s ease-in-out;
     @each $name, $value in $colors {
-      &.#{$name} {
+      &.#{"" + $name} {
         background: $value;
       }
     }

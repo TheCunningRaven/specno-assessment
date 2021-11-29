@@ -1,6 +1,6 @@
-<a routerLink="/home" class="previous round">&#8249;</a>
+<a routerLink="/home" class="round-previous"><i class="fas fa-arrow-left fa-sm"></i></a>
 
-<!-- COMPANY ACCORDION -->
+<!-- OFFICE ACCORDION -->
 
 <accordion [isAnimated]="true">
     <accordion-group heading="{{office.name}}" [isOpen]="true">
@@ -13,5 +13,5 @@
     </accordion-group>
 </accordion>
 
-<!-- EMPLOYEE LIST -->
+<!-- EMPLOYEE COMPONENT -->
 <app-employees [selectedOffice]="office"></app-employees>

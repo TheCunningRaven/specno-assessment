@@ -2,11 +2,11 @@
   "offices": [
     {
       "name": "Century City HQ",
-      "address": "21 Spurwing Avenu",
+      "address": "21 Spurwing Avenue",
       "emailAddress": "ctHq@gmail.com",
       "phoneNumber": "0769715222",
       "capacity": 6,
-      "colour": "blue",
+      "colour": "orange",
       "id": 1
     },
     {
@@ -15,7 +15,7 @@
       "emailAddress": "durbanOffice@gmail.com",
       "phoneNumber": "0823344812",
       "capacity": 5,
-      "colour": "violet",
+      "colour": "blue",
       "id": 2
     },
     {
@@ -33,7 +33,7 @@
       "emailAddress": "bloem@gmail.com",
       "phoneNumber": "0792743219",
       "capacity": 4,
-      "colour": "red",
+      "colour": "orange",
       "id": 4
     }
   ],
