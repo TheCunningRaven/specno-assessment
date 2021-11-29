@@ -4,12 +4,15 @@
 Node 14.17.5
 AngularCLI v9.1.15
 
-## 1 - JSON Server Run
+## 1 - Install Package dependencies
+run npm install in the root directory of the app to add the necessary dependenciess for running the application
+
+## 2 - JSON Server Run
 json-server --watch db.json
 This must be run from the app directory (or wherever the db.json file is)
 This mock server runs on (http://localhost:3000/)
 
-## 2 - Development server
+## 3 - Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 

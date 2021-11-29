@@ -25,7 +25,8 @@ export class OfficeComponent implements OnInit {
     emailAddress: '',
     phoneNumber: 0,
     capacity: 0,
-    colour:''
+    colour:'',
+    employees:[]
   }  
   //General Variables
   errorMsg = '';
@@ -134,7 +135,8 @@ export class OfficeComponent implements OnInit {
       ]],
       capacity: [0, [
         Validators.required,
-        Validators.minLength(1)
+        Validators.minLength(1),
+        Validators.max(5)
       ]],
       colour:['',[
         Validators.required

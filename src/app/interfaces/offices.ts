@@ -8,4 +8,5 @@ export interface IOffice {
     emailAddress: string;
     capacity: number;
     colour:string
+    employees:IEmployee[];
 }

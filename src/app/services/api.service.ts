@@ -33,7 +33,7 @@ export class ApiService {
 
   // OFFICES
   getOffices() {
-    return this.http.get<IOffice[]>(this.baseUrl + 'offices').pipe(
+    return this.http.get<IOffice[]>(this.baseUrl + 'offices?_embed=employees').pipe(
       catchError(this.handleError)
     );
   }

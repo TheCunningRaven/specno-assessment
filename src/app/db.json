@@ -5,8 +5,8 @@
       "address": "21 Spurwing Avenue",
       "emailAddress": "ctHq@gmail.com",
       "phoneNumber": "0769715222",
-      "capacity": 6,
-      "colour": "violet",
+      "capacity": 3,
+      "colour": "red",
       "id": 1
     },
     {
@@ -32,8 +32,8 @@
       "address": "31 Jacaranda street",
       "emailAddress": "bloem@gmail.com",
       "phoneNumber": "0792743219",
-      "capacity": 4,
-      "colour": "orange",
+      "capacity": 1,
+      "colour": "violet",
       "id": 4
     }
   ],
