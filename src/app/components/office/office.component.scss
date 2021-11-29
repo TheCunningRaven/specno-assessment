@@ -9,6 +9,7 @@ $colors: (
 );
 accordion-group {
   ::ng-deep {
+    margin: 4px;
     div {
       & > div.panel-heading.card-header.panel-enabled {
         background-color: rgba(186, 193, 199, 0.15); //background of accordion heading
@@ -16,6 +17,10 @@ accordion-group {
         .btn-link {
           color: rgb(6, 10, 9); //accordion heading buttons style
           text-decoration: none;
+          font-weight: bold;
+        }
+        p.normal {
+          font-weight: normal!important;
         }
       }
 
