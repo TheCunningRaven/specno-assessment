@@ -93,22 +93,24 @@
                 </label>
             </div>
             <!-- SUBMIT BUTTONS -->
-            <button *ngIf="modalAction =='Update'" 
+            <div>
+                <button *ngIf="modalAction =='Update'" 
                     (click)="updateEmployee()" 
                     [disabled]="employeeForm.invalid" 
                     type="submit" 
                     class="btn btn-primary float-right"
                     >
                     {{modalAction}}
-            </button>
-            <button *ngIf="modalAction =='Add'" 
+                </button>
+                <button *ngIf="modalAction =='Add'" 
                     (click)="addNewEmployee()" 
                     [disabled]="employeeForm.invalid" 
                     type="submit" 
                     class="btn btn-primary float-right"
                     >
                     {{modalAction}}
-            </button>
+                </button>
+            </div>
         </form>
         <!-- If ACTION = DELETE MODAL BODY -->
         <div class="modal-body text-center" *ngIf="modalAction == 'Delete'">

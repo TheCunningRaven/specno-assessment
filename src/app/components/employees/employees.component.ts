@@ -37,6 +37,8 @@ export class EmployeesComponent implements OnInit {
     'assets/images/avatar3.png',
     'assets/images/avatar4.png',
     'assets/images/avatar5.png',
+    'assets/images/avatar6.png',
+    'assets/images/avatar7.png',
   ]
 
   constructor(
