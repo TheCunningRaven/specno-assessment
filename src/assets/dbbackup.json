@@ -3,10 +3,10 @@
     {
       "name": "Century City HQ",
       "address": "21 Spurwing Avenue",
-      "emailAddress": "ctHq@gmail.com",
+      "emailAddress": "capeTownHQ@gmail.com",
       "phoneNumber": "0769715222",
-      "capacity": 6,
-      "colour": "orange",
+      "capacity": 5,
+      "colour": "violet",
       "id": 1
     },
     {
@@ -23,7 +23,7 @@
       "address": "11 Snowy Mountain street",
       "emailAddress": "lesotho@gmail.com",
       "phoneNumber": "0823344812",
-      "capacity": 7,
+      "capacity": 5,
       "colour": "green",
       "id": 3
     },
@@ -48,30 +48,65 @@
     {
       "id": 2,
       "officeId": 2,
-      "firstName": "Richard",
-      "lastName": "Daniardo",
-      "avatarUrl": "assets/images/avatar4.png"
+      "firstName": "Kevin",
+      "lastName": "Wu",
+      "avatarUrl": "assets/images/avatar3.png"
     },
     {
       "id": 3,
       "officeId": 3,
-      "firstName": "Daniel",
-      "lastName": "Richardo",
+      "firstName": "Jonathan",
+      "lastName": "De Kock",
       "avatarUrl": "assets/images/avatar2.png"
     },
     {
       "id": 4,
       "officeId": 4,
-      "firstName": "Vebastion",
-      "lastName": "Settel",
+      "firstName": "Darren ",
+      "lastName": "de Abreu",
       "avatarUrl": "assets/images/avatar3.png"
     },
     {
       "id": 5,
       "officeId": 1,
-      "firstName": "Phil",
-      "lastName": "DeWet",
-      "avatarUrl": "assets/images/avatar5.png"
+      "firstName": "Kerryn",
+      "lastName": "Calitz",
+      "avatarUrl": "assets/images/avatar4.png"
+    },
+    {
+      "officeId": 1,
+      "firstName": "Jenna",
+      "lastName": "Venter",
+      "avatarUrl": "assets/images/avatar4.png",
+      "id": 6
+    },
+    {
+      "officeId": 3,
+      "firstName": "Darren",
+      "lastName": "Bates",
+      "avatarUrl": "assets/images/avatar3.png",
+      "id": 7
+    },
+    {
+      "officeId": 2,
+      "firstName": "Philip",
+      "lastName": "A?",
+      "avatarUrl": "assets/images/avatar6.png",
+      "id": 8
+    },
+    {
+      "officeId": 4,
+      "firstName": "Daniel",
+      "lastName": "Novitzkas",
+      "avatarUrl": "assets/images/avatar3.png",
+      "id": 9
+    },
+    {
+      "officeId": 1,
+      "firstName": "Ester",
+      "lastName": "Van der Merwe",
+      "avatarUrl": "assets/images/avatar1.png",
+      "id": 10
     }
   ]
 }
