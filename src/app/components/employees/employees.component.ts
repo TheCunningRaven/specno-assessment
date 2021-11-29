@@ -30,7 +30,6 @@ export class EmployeesComponent implements OnInit {
   modalRef?: BsModalRef;
   modalAction = '';
   searchText = '';
-  errorMsg = '';
   avatars = [
     'assets/images/avatar1.png',
     'assets/images/avatar2.png',
@@ -50,7 +49,6 @@ export class EmployeesComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployees();
     this.initialiseForm();
-    // this.employeeForm.valueChanges.subscribe(console.log);
   }
   addNewEmployee() {
     if (this.employees.length < this.selectedOffice.capacity) {
@@ -60,6 +58,7 @@ export class EmployeesComponent implements OnInit {
         this.modalRef?.hide();
         this.employeeForm.reset();
       }, error => {
+        alert('Failed to add employee');
         console.log(error);
       });
     }
@@ -74,25 +73,27 @@ export class EmployeesComponent implements OnInit {
       this.employees = response;
     }, error => {
       console.log(error);
+      alert('Failed to get employees');
     });
   }
 
   updateEmployee() {
-    this.apiService.updateEmployee(this.employeePayload.id, this.employeePayload).subscribe(response => {
+    this.apiService.updateEmployee(this.employeePayload.id, this.employeePayload).subscribe(() => {
       this.getEmployees();
       this.modalRef?.hide();
       this.employeeForm.reset();
     }, error => {
       console.log(error);
-      this.errorMsg = 'Failed to update employee';
+      alert('Failed to update employee');
     });
   }
 
   deleteEmployee() {
-    this.apiService.deleteEmployee(this.employeePayload.id).subscribe(response => {
-      this.getEmployees(); //Ideally the repsonse from the API would help me update the dom with a nice message
+    this.apiService.deleteEmployee(this.employeePayload.id).subscribe(() => {
+      this.getEmployees();
     }, error => {
       console.log(error);
+      alert('Failed to delete employee');
     });
     this.modalRef?.hide();
   }

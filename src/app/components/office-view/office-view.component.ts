@@ -1,6 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { IOffice } from 'src/app/interfaces/offices';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -13,7 +11,6 @@ export class OfficeViewComponent implements OnInit {
   office:any = {}
 
   constructor(
-    private modalService: BsModalService,
     private service: SharedService
     ) { }
 

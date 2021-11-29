@@ -25,11 +25,11 @@ export class OfficeComponent implements OnInit {
     emailAddress: '',
     phoneNumber: 0,
     capacity: 0,
-    colour:'',
-    employees:[]
-  }  
+    colour: '',
+    employees: []
+  }
+
   //General Variables
-  errorMsg = '';
   modalAction = '';
   modalRef?: BsModalRef;
   colours = [
@@ -40,6 +40,7 @@ export class OfficeComponent implements OnInit {
     'blue',
     'violet'
   ]
+
   constructor(
     private apiService: ApiService,
     private service: SharedService,
@@ -55,12 +56,13 @@ export class OfficeComponent implements OnInit {
 
   addNewOffice() {
     if (this.offices.length < 5) {
-      this.apiService.addOffice(this.officeForm.value).subscribe(response => {
+      this.apiService.addOffice(this.officeForm.value).subscribe(() => {
         this.getOffices();
         this.modalRef?.hide();
         this.officeForm.reset();
       }, error => {
         console.log(error);
+        alert('Failed to add office');
       });
     } else {
       this.modalRef?.hide();
@@ -73,25 +75,27 @@ export class OfficeComponent implements OnInit {
       this.offices = response;
     }, error => {
       console.log(error);
+      alert('Failed to get offices')
     });
   }
+
   updateOffice() {
-   
-    this.apiService.updateOffice(this.officePayload.id, this.officeForm.value).subscribe(response => {
+    this.apiService.updateOffice(this.officePayload.id, this.officeForm.value).subscribe(() => {
       this.getOffices();
       this.modalRef?.hide();
       this.officeForm.reset();
     }, error => {
       console.log(error);
-      this.errorMsg = 'Failed to update employee';
+      alert('Failed to update office');
     });
   }
 
   deleteOffice() {
-    this.apiService.deleteOffice(this.officePayload.id).subscribe(response => {
+    this.apiService.deleteOffice(this.officePayload.id).subscribe(() => {
       this.getOffices();
     }, error => {
       console.log(error);
+      alert('Failed to delete office');
     });
     this.modalRef?.hide();
   }
@@ -104,15 +108,16 @@ export class OfficeComponent implements OnInit {
   openModal(officeDataFromTemplate: any, action: string) {
     this.modalAction = action;
     this.modalRef = this.modalService.show(this.OfficeSheet);
-      //Assign required fields for office payload
-      this.officePayload.id = officeDataFromTemplate.id;
-      this.officePayload.name = officeDataFromTemplate.name;
-      this.officePayload.address = officeDataFromTemplate.address;
-      this.officePayload.emailAddress = officeDataFromTemplate.emailAddress;
-      this.officePayload.phoneNumber = officeDataFromTemplate.phoneNumber;
-      this.officePayload.capacity = officeDataFromTemplate.capacity;
-      this.officePayload.colour = officeDataFromTemplate.colour;
+    //Assign required fields for office payload
+    this.officePayload.id = officeDataFromTemplate.id;
+    this.officePayload.name = officeDataFromTemplate.name;
+    this.officePayload.address = officeDataFromTemplate.address;
+    this.officePayload.emailAddress = officeDataFromTemplate.emailAddress;
+    this.officePayload.phoneNumber = officeDataFromTemplate.phoneNumber;
+    this.officePayload.capacity = officeDataFromTemplate.capacity;
+    this.officePayload.colour = officeDataFromTemplate.colour;
   }
+
   initialiseForm() {
     //just made this method to remove this mess from the ngOnInit...
     this.officeForm = this.formBuilder.group({
@@ -138,7 +143,7 @@ export class OfficeComponent implements OnInit {
         Validators.minLength(1),
         Validators.max(5)
       ]],
-      colour:['',[
+      colour: ['', [
         Validators.required
       ]]
     })
